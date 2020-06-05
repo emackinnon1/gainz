@@ -3,6 +3,7 @@ import "./App.css";
 // import { useRoutes } from "hookrouter";
 import { Route, Switch, Link } from "react-router-dom";
 import Goals from "../Goals/Goals";
+import Exercises from "../Exercises/Exercises";
 
 export const App = () => {
 	const [exercises, setExercises] = useState([]);
@@ -25,7 +26,12 @@ export const App = () => {
 			</header>
 			<div className="wrapper">
 				<Switch>
-					<Route exact path="/" render={() => <Goals setGoal={setGoal} />} />
+					<Route
+						exact
+						path="/"
+						render={() => <Goals setGoal={setGoal} goal={goal} />}
+					/>
+					<Route path="/exercises" render={() => <Exercises />} />
 				</Switch>
 			</div>
 		</div>

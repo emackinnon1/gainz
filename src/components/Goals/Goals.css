@@ -1,4 +1,13 @@
-.goal {
+.dropdown-container {
+	display: flex;
+	flex-direction: row;
+}
+
+.dropdown-container div {
+	margin: 10px;
+}
+
+.goal-dropdown {
 	border-radius: 6px;
 	width: 100%;
 	height: 50px;

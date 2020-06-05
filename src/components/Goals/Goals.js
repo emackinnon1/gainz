@@ -1,19 +1,21 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import "./Goals.css";
 import { useForm } from "react-hook-form";
-import { fetchCategories } from "../../apiCalls";
+import { fetchCategories, fetchEquipment } from "../../apiCalls";
+import { useHistory } from "react-router-dom";
 
 const Goals = ({ setGoal }) => {
+	const history = useHistory();
 	const { register, handleSubmit, errors, reset } = useForm();
 	const [categories, setCategories] = useState([]);
-
-	const submit = (data) => {
-		console.log(data);
-	};
+	const [equipment, setEquipment] = useState([]);
+	const urlExerciseCategories = "https://wger.de/api/v2/exercisecategory/";
+	const urlEquipment = "https://wger.de/api/v2/equipment/";
 
 	useEffect(() => {
 		const getData = async () => {
-			setCategories(await fetchCategories());
+			setCategories(await fetchCategories(urlExerciseCategories));
+			setEquipment(await fetchEquipment(urlEquipment));
 		};
 		getData();
 	}, []);
@@ -25,20 +27,67 @@ const Goals = ({ setGoal }) => {
 			</option>
 		));
 	};
-	console.log(categories);
+
+	const handleGoalSubmission = (data) => {
+		if (data) {
+			setGoal(data);
+			history.push("/exercises");
+		}
+	};
+
 	return (
 		<>
 			<h2>What are your goals?</h2>
-			<form onSubmit={handleSubmit(submit)}>
-				<p>Goal for the session:</p>
-				<select name="goal" ref={register} className="goal">
-					<option value="strength">Strength</option>
-					<option value="hypertrophy">Hypertrophy</option>
-					<option value="endurance">Muscular Endurance</option>
-				</select>
-				<p>Muscle group to train:</p>
-				<select>{makeMenu(categories)}</select>
-				<input type="submit" className="submit-goal-btn" />
+			<form onSubmit={handleSubmit(handleGoalSubmission)}>
+				<div className="dropdown-container">
+					<div>
+						<p>Muscular goal for the session:</p>
+						<select
+							name="goal"
+							ref={register({ required: "Please enter an answer!" })}
+							className="goal-dropdown"
+							defaultValue={""}>
+							<option disabled value="">
+								-- select an option --
+							</option>
+							<option value="strength">Strength</option>
+							<option value="hypertrophy">Hypertrophy</option>
+							<option value="endurance">Muscular Endurance</option>
+						</select>
+						{errors.goal && <p>{errors.goal.message}</p>}
+					</div>
+					<div>
+						<p>Muscle group to train:</p>
+						<select
+							name="muscle"
+							ref={register({ required: "Please enter an answer!" })}
+							className="goal-dropdown"
+							defaultValue={""}>
+							<option disabled value="">
+								-- select an option --
+							</option>
+							{makeMenu(categories)}
+						</select>
+						{errors.muscle && <p>{errors.muscle.message}</p>}
+					</div>
+					<div>
+						<p>Available equipment:</p>
+						<select
+							name="equipment"
+							ref={register({ required: "Please enter an answer!" })}
+							className="goal-dropdown"
+							defaultValue={""}>
+							<option disabled value="">
+								-- select an option --
+							</option>
+							{makeMenu(equipment)}
+						</select>
+						{errors.equipment && <p>{errors.equipment.message}</p>}
+					</div>
+				</div>
+				<button type="submit" className="submit-goal-btn">
+					LET'S GET SWOLE
+				</button>
 			</form>
 		</>
 	);
