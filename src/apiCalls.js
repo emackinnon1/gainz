@@ -12,3 +12,9 @@ export const fetchEquipment = async (url) => {
 	const response = await equipmentTypes.json();
 	return response.results;
 };
+
+export const fetchExercises = async (url) => {
+	const exercises = await fetch(url);
+	const response = await exercises.json();
+	console.log(response);
+};

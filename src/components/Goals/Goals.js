@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { fetchCategories, fetchEquipment } from "../../apiCalls";
 import { useHistory } from "react-router-dom";
 
-const Goals = ({ setGoal }) => {
+const Goals = ({ setGoal, goal }) => {
 	const history = useHistory();
 	const { register, handleSubmit, errors, reset } = useForm();
 	const [categories, setCategories] = useState([]);
@@ -22,7 +22,7 @@ const Goals = ({ setGoal }) => {
 
 	const makeMenu = (list) => {
 		return list.map((list, i) => (
-			<option key={i} value={list.name}>
+			<option key={i} value={list.id}>
 				{list.name}
 			</option>
 		));
@@ -31,7 +31,7 @@ const Goals = ({ setGoal }) => {
 	const handleGoalSubmission = (data) => {
 		if (data) {
 			setGoal(data);
-			history.push("/exercises");
+			history.push(`/exercises/${data.muscle}/${data.equipment}`);
 		}
 	};
 
@@ -43,7 +43,7 @@ const Goals = ({ setGoal }) => {
 					<div>
 						<p>Muscular goal for the session:</p>
 						<select
-							name="goal"
+							name="workoutGoal"
 							ref={register({ required: "Please enter an answer!" })}
 							className="goal-dropdown"
 							defaultValue={""}>

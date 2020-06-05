@@ -31,7 +31,16 @@ export const App = () => {
 						path="/"
 						render={() => <Goals setGoal={setGoal} goal={goal} />}
 					/>
-					<Route path="/exercises" render={() => <Exercises />} />
+					<Route
+						path="/exercises/:muscle/:equipment"
+						render={({ match }) => (
+							<Exercises
+								goal={goal}
+								muscle={match.params.muscle}
+								equipment={match.params.equipment}
+							/>
+						)}
+					/>
 				</Switch>
 			</div>
 		</div>
