@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Goals.css";
 import { useForm } from "react-hook-form";
-import { fetchCategories, fetchEquipment } from "../../apiCalls";
+import { fetchData } from "../../apiCalls";
 import { useHistory } from "react-router-dom";
 
 const Goals = ({ setGoal, goal }) => {
@@ -14,8 +14,8 @@ const Goals = ({ setGoal, goal }) => {
 
 	useEffect(() => {
 		const getData = async () => {
-			setCategories(await fetchCategories(urlExerciseCategories));
-			setEquipment(await fetchEquipment(urlEquipment));
+			setCategories(await fetchData(urlExerciseCategories));
+			setEquipment(await fetchData(urlEquipment));
 		};
 		getData();
 	}, []);
