@@ -29,13 +29,14 @@ const Exercises = ({ muscle, equipment }) => {
 	return (
 		<>
 			<h1>Choose exercises from the following:</h1>
-			<InfiniteScroll
-				dataLength={exerciseList ? exerciseList.length : 0}
-				loader={<h4>Loading...</h4>}
-				scrollableTarget="scrollableDiv">
-				{makeExerciseCards(exerciseList)}
-			</InfiniteScroll>
-			<div className="exercise-container"></div>
+			<div className="exercise-container scrollableDiv">
+				<InfiniteScroll
+					dataLength={exerciseList ? exerciseList.length : 0}
+					loader={<h4>Loading...</h4>}
+					scrollableTarget="scrollableDiv">
+					{makeExerciseCards(exerciseList)}
+				</InfiniteScroll>
+			</div>
 		</>
 	);
 };
