@@ -32,28 +32,19 @@
 	width: 60%;
 }
 
-.start-over-btn {
-	text-decoration: none;
-	background-color: #e63946;
-	border-radius: 4px;
-	box-shadow: 0 0 0.5em #1d3557;
-	color: #f1faee;
-	right: 3%;
-	font-size: 1.2em;
-	margin: 1em;
-	padding: 0.4em;
-	position: absolute;
-}
-
+.start-over-btn,
 .my-workouts-btn {
 	text-decoration: none;
 	background-color: #e63946;
 	border-radius: 4px;
 	box-shadow: 0 0 0.5em #1d3557;
 	color: #f1faee;
-	right: 13%;
 	font-size: 1.2em;
 	margin: 1em;
 	padding: 0.4em;
+}
+
+.nav-btn-container {
 	position: absolute;
+	right: 5%;
 }

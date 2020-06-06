@@ -3,11 +3,11 @@ import "./ExerciseCard.css";
 import ReactHtmlParser from "react-html-parser";
 
 const ExerciseCard = ({ id, description, name }) => {
-	console.log(typeof description);
 	return (
-		<div id={id}>
-			<h3>{name}</h3>
+		<div id={id} className="exercise-card">
+			<h2>{name}</h2>
 			{description.length > 0 ? ReactHtmlParser(description) : name}
+			<button className="add-btn">Add to current workout</button>
 		</div>
 	);
 };

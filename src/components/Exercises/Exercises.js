@@ -3,6 +3,7 @@ import "./Exercises.css";
 import { fetchData } from "../../apiCalls";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 
 const Exercises = ({ muscle, equipment }) => {
 	const [exerciseList, setExerciseList] = useState([]);
@@ -37,6 +38,9 @@ const Exercises = ({ muscle, equipment }) => {
 					{makeExerciseCards(exerciseList)}
 				</InfiniteScroll>
 			</div>
+			<Link to="/" className="new-search-btn">
+				New Search
+			</Link>
 		</>
 	);
 };
