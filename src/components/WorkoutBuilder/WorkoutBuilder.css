@@ -4,15 +4,26 @@
 }
 
 .dropdown-container div {
-	margin: 10px;
+	margin: 7px;
+}
+
+div p {
+	margin: 0;
+}
+
+.form-container {
+	background-color: #f1faee;
+	border-radius: 4px;
+	box-shadow: 0 0 0.2em #1d3557;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0.5em;
+	width: 90%;
 }
 
 .goal-dropdown {
 	border-radius: 6px;
-	width: 100%;
-	height: 50px;
-	font-size: 100%;
-	font-weight: bold;
 	cursor: pointer;
 	border-radius: 0;
 	background-color: #457b9d;
@@ -25,11 +36,13 @@
 
 form {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
+	justify-content: space-between;
 }
 
 .submit-goal-btn {
+	cursor: pointer;
 	text-decoration: none;
 	background-color: #f1faee;
 	border: solid 2px #1d3557;
