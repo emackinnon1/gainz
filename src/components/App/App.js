@@ -29,8 +29,6 @@ export const App = () => {
 		setCurrentPlan([...modifiedPlan]);
 	};
 
-	console.log(workouts);
-
 	return (
 		<div className="App">
 			<header className="App-header">
@@ -68,7 +66,10 @@ export const App = () => {
 							</>
 						)}
 					/>
-					<Route path="/myworkouts" render={() => <MyWorkouts />} />
+					<Route
+						path="/myworkouts"
+						render={() => <MyWorkouts workouts={workouts} />}
+					/>
 				</Switch>
 			</div>
 		</div>

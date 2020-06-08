@@ -83,7 +83,7 @@ const WorkoutBuilder = ({ setGoal, goal }) => {
 						</div>
 					</div>
 					<button type="submit" className="submit-goal-btn">
-						LET'S GET SWOLE
+						GET SWOLE
 					</button>
 				</form>
 			</div>
