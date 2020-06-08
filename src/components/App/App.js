@@ -5,6 +5,7 @@ import WorkoutBuilder from "../WorkoutBuilder/WorkoutBuilder";
 import Exercises from "../Exercises/Exercises";
 import CurrentWorkoutPlan from "../CurrentWorkoutPlan/CurrentWorkoutPlan";
 import Home from "../Home/Home";
+import MyWorkouts from "../MyWorkouts/MyWorkouts";
 
 export const App = () => {
 	const [workouts, setWorkouts] = useState([]);
@@ -13,18 +14,18 @@ export const App = () => {
 
 	// const apiKey = "d5768092543cdecc8aba83fd6bbecc2e33e1d5b4";
 
-	const addExerciseToPlan = (goals, exerciseId) => {
-		console.log(currentPlan);
+	const addExerciseToPlan = (goals, exerciseId, name) => {
 		const exercise = {
 			goal: goals.workoutGoal,
 			exerciseId,
+			name,
 		};
 		setCurrentPlan([...currentPlan, exercise]);
 	};
 
 	const removeExercise = (index) => {
-		const modifiedPlan = currentPlan.splice(index, 1);
-		console.log(modifiedPlan);
+		let modifiedPlan = [...currentPlan];
+		modifiedPlan.splice(index, 1);
 		setCurrentPlan([...modifiedPlan]);
 	};
 
@@ -67,6 +68,7 @@ export const App = () => {
 							</>
 						)}
 					/>
+					<Route path="/myworkouts" render={() => <MyWorkouts />} />
 				</Switch>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./CurrentWorkoutPlan.css";
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
-import { fetchExerciseInfo } from "../../apiCalls";
+// import { fetchExerciseInfo } from "../../apiCalls";
 
 const CurrentWorkoutPlan = ({
 	currentPlan,
@@ -9,34 +9,33 @@ const CurrentWorkoutPlan = ({
 	removeExercise,
 	workouts,
 }) => {
-	const [workingPlan, setWorkingPlan] = useState([]);
+	// const [workingPlan, setWorkingPlan] = useState([]);
 
-	useEffect(() => {
-		console.log(workingPlan);
-		setWorkingPlan([]);
-		const getData = async () => {
-			let plan = [];
-			currentPlan.map(async (exercise) => {
-				const url = `https://wger.de/api/v2/exerciseinfo/${exercise.exerciseId}/`;
-				const newExercise = {
-					...(await fetchExerciseInfo(url)),
-					muscleGoal: exercise.goal,
-					id: exercise.exerciseId,
-				};
-				setWorkingPlan([...workingPlan, newExercise]);
-			});
-		};
-		getData();
-	}, [currentPlan]);
+	// useEffect(() => {
+	// 	setWorkingPlan([]);
+	// 	const getData = async () => {
+	// 		currentPlan.map(async (exercise) => {
+	// 			const url = `https://wger.de/api/v2/exerciseinfo/${exercise.exerciseId}/`;
+	// 			const newExercise = {
+	// 				...(await fetchExerciseInfo(url)),
+	// 				muscleGoal: exercise.goal,
+	// 				id: exercise.exerciseId,
+	// 			};
+	// 			console.log("nE", newExercise);
+	// 			setWorkingPlan([...workingPlan, newExercise]);
+	// 		});
+	// 	};
+	// 	getData();
+	// }, []);
 
 	const displayWorkouts = (plan, i) => {
 		return plan.map((exercise, i) => {
 			return (
 				<WorkoutCard
 					key={i}
-					exerciseId={exercise.id}
+					exerciseId={exercise.exerciseId}
 					name={exercise.name}
-					muscleGoal={exercise.muscleGoal}
+					muscleGoal={exercise.goal}
 					removeExercise={removeExercise}
 					index={i}
 				/>
@@ -44,24 +43,21 @@ const CurrentWorkoutPlan = ({
 		});
 	};
 
-	const addToFavorites = (prevRoutines, newRoutine) => {
+	const addToWorkouts = (prevRoutines, newRoutine) => {
 		setWorkouts([...prevRoutines, newRoutine]);
 	};
-
-	console.log("workingPlan", workingPlan);
-	console.log("currentPlan", currentPlan);
 
 	return (
 		<>
 			<h1>Your current plan:</h1>
 			{currentPlan.length === 0 && <p>Add exercises to your plan, dummy!</p>}
 			<div className="current-plan-container">
-				{displayWorkouts(workingPlan)}
+				{displayWorkouts(currentPlan)}
 			</div>
 			{currentPlan.length > 0 && (
 				<button
 					className="add-workout-btn"
-					onClick={() => addToFavorites(workouts, workingPlan)}>
+					onClick={() => addToWorkouts(workouts, currentPlan)}>
 					Add this plan to My Workouts
 				</button>
 			)}

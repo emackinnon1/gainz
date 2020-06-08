@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./WorkoutCard.css";
-import { fetchExerciseInfo } from "../../apiCalls";
 
 const WorkoutCard = ({ index, name, muscleGoal, removeExercise }) => {
 	return (
