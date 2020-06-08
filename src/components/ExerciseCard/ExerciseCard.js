@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./ExerciseCard.css";
 import ReactHtmlParser from "react-html-parser";
 
-const ExerciseCard = ({ id, description, name, setCurrentPlan }) => {
+const ExerciseCard = ({
+	id,
+	description,
+	name,
+	currentPlan,
+	addExerciseToPlan,
+	goal,
+}) => {
 	return (
-		<div id={id} className="exercise-card">
+		<div className="exercise-card">
 			<h2>{name}</h2>
 			{description.length > 0 ? ReactHtmlParser(description) : name}
-			<button className="add-btn">Add to current workout</button>
+			<button
+				id={id}
+				className="add-btn"
+				onClick={(e) => addExerciseToPlan(goal, e.target.id)}>
+				Add to current workout
+			</button>
 		</div>
 	);
 };

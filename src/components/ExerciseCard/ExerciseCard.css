@@ -1,7 +1,7 @@
 .exercise-card {
 	align-items: center;
 	background-color: #f1faee;
-	box-shadow: 0 0 0.5em #1d3557;
+	box-shadow: 0 0 0.2 em #1d3557;
 	border-radius: 7px;
 	display: flex;
 	flex-direction: column;

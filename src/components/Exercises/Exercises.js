@@ -3,11 +3,9 @@ import "./Exercises.css";
 import { fetchData } from "../../apiCalls";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Link } from "react-router-dom";
 
-const Exercises = ({ goal, muscle, equipment, setCurrentPlan, url }) => {
+const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
 	const [exerciseList, setExerciseList] = useState([]);
-	console.log(exerciseList);
 
 	const urlExercises = `https://wger.de/api/v2/exercise/?category=${goal.muscle}&equipment=${goal.equipment}&language=2&license_author=wger.de`;
 
@@ -26,24 +24,32 @@ const Exercises = ({ goal, muscle, equipment, setCurrentPlan, url }) => {
 	const makeExerciseCards = (list) => {
 		return list.map((exercise, i) => {
 			return (
-				<ExerciseCard key={i} {...exercise} setCurrentPlan={setCurrentPlan} />
+				<ExerciseCard
+					key={i}
+					{...exercise}
+					currentPlan={currentPlan}
+					goal={goal}
+					addExerciseToPlan={addExerciseToPlan}
+				/>
 			);
 		});
 	};
 
 	return (
 		<>
+			<h1>Add exercises to your plan:</h1>
 			<div className="exercise-container scrollableDiv">
-				<InfiniteScroll
-					dataLength={exerciseList ? exerciseList.length : 0}
-					loader={<h4>Loading...</h4>}
-					scrollableTarget="scrollableDiv">
-					{makeExerciseCards(exerciseList)}
-				</InfiniteScroll>
+				{exerciseList.length === 0 ? (
+					<p>Search for exercises!</p>
+				) : (
+					<InfiniteScroll
+						dataLength={exerciseList ? exerciseList.length : 0}
+						loader={<h4>Loading...</h4>}
+						scrollableTarget="scrollableDiv">
+						{makeExerciseCards(exerciseList)}
+					</InfiniteScroll>
+				)}
 			</div>
-			{/* <Link to="/" className="new-search-btn">
-				New Search
-			</Link> */}
 		</>
 	);
 };

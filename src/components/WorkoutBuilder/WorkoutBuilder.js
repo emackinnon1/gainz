@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./WorkoutBuilder.css";
 import { useForm } from "react-hook-form";
 import { fetchData } from "../../apiCalls";
-import { useHistory } from "react-router-dom";
-import Exercises from "../Exercises/Exercises";
 
 const WorkoutBuilder = ({ setGoal, goal }) => {
-	const history = useHistory();
-	const { register, handleSubmit, errors, reset } = useForm();
+	const { register, handleSubmit, errors } = useForm();
 	const [categories, setCategories] = useState([]);
 	const [equipment, setEquipment] = useState([]);
 	const urlExerciseCategories = "https://wger.de/api/v2/exercisecategory/";
@@ -32,14 +29,12 @@ const WorkoutBuilder = ({ setGoal, goal }) => {
 	const handleGoalSubmission = (data) => {
 		if (data) {
 			setGoal(data);
-			// history.push(`/exercises/${data.muscle}/${data.equipment}`);
 		}
 	};
 
 	return (
 		<>
 			<div className="form-container">
-				<h2>What are your goals?</h2>
 				<form onSubmit={handleSubmit(handleGoalSubmission)}>
 					<div className="dropdown-container">
 						<div>
@@ -56,7 +51,7 @@ const WorkoutBuilder = ({ setGoal, goal }) => {
 								<option value="hypertrophy">Hypertrophy</option>
 								<option value="endurance">Muscular Endurance</option>
 							</select>
-							{errors.goal && <p>{errors.goal.message}</p>}
+							{errors.workoutGoal && <p>{errors.workoutGoal.message}</p>}
 						</div>
 						<div>
 							<p>Muscle group:</p>

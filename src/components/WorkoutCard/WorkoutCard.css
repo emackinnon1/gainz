@@ -1,0 +1,26 @@
+.workout-card {
+	background-color: #1d3557;
+	color: #f1faee;
+	padding: 1em;
+	margin: 1em;
+	border-radius: 4px;
+}
+
+.card-header {
+	display: flex;
+	flex-direction: row;
+}
+
+.delete-exercise-btn {
+	background-color: #1d3557;
+	border: none;
+	color: #f1faee;
+	cursor: pointer;
+	margin-left: 10px;
+	float: right;
+	text-decoration: none;
+}
+
+.workout-card h3 {
+	margin: 0;
+}

@@ -1,15 +1,4 @@
 .exercise-container {
-	height: 300px;
+	height: 250px;
 	overflow: auto;
-}
-
-.new-search-btn {
-	text-decoration: none;
-	background-color: #f1faee;
-	border: solid 2px #1d3557;
-	border-radius: 4px;
-	color: #1d3557;
-	font-size: 1.2em;
-	padding: 5px;
-	margin: 0.5em;
 }
