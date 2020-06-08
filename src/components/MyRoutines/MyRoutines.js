@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./MyWorkouts.css";
+import "./MyRoutines.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchExerciseInfo } from "../../apiCalls";
-import MyWorkoutCard from "../WorkoutCard/WorkoutCard";
-import ReactHtmlParser from "react-html-parser";
+import RoutineCard from "../RoutineCard/RoutineCard";
 
-const MyWorkouts = ({ workouts }) => {
+const MyRoutines = ({ workouts }) => {
 	const [routineList, setRoutineList] = useState([]);
-	// console.log("myworkouts", workouts);
 
 	useEffect(() => {
-		// setWorkoutList([]);
 		const getData = async () => {
 			if (!workouts) {
 				return;
@@ -31,24 +28,28 @@ const MyWorkouts = ({ workouts }) => {
 		getData();
 	}, [workouts]);
 
-	const cards = routineList.map((routine) => {
-		return routine.map((exercise) => {
-			return (
-				<div className="routine-card">
-					<h2>{exercise.name}</h2>
-				</div>
-			);
+	const createRoutine = (routineList) => {
+		return routineList.map((routine, i) => {
+			return <RoutineCard key={i} {...routine} />;
 		});
-	});
+	};
 
-	console.log(routineList);
+	const cards = routineList.map((fullRoutine, i) => {
+		return (
+			<div key={i} className="full-routine">
+				{createRoutine(fullRoutine)}
+			</div>
+		);
+	});
 
 	return (
 		<>
 			<h1>Your saved routines:</h1>
-			{cards}
+			{(routineList.length > 0 && (
+				<div className="routines-container">{cards}</div>
+			)) || <p>Add some routines you pencil-necked S.O.B.</p>}
 		</>
 	);
 };
 
-export default MyWorkouts;
+export default MyRoutines;

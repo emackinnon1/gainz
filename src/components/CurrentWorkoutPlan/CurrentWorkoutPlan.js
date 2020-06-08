@@ -1,33 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./CurrentWorkoutPlan.css";
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
-// import { fetchExerciseInfo } from "../../apiCalls";
+import { Link } from "react-router-dom";
 
 const CurrentWorkoutPlan = ({
 	currentPlan,
 	setWorkouts,
 	removeExercise,
 	workouts,
+	setCurrentPlan,
 }) => {
-	// const [workingPlan, setWorkingPlan] = useState([]);
-
-	// useEffect(() => {
-	// 	setWorkingPlan([]);
-	// 	const getData = async () => {
-	// 		currentPlan.map(async (exercise) => {
-	// 			const url = `https://wger.de/api/v2/exerciseinfo/${exercise.exerciseId}/`;
-	// 			const newExercise = {
-	// 				...(await fetchExerciseInfo(url)),
-	// 				muscleGoal: exercise.goal,
-	// 				id: exercise.exerciseId,
-	// 			};
-	// 			console.log("nE", newExercise);
-	// 			setWorkingPlan([...workingPlan, newExercise]);
-	// 		});
-	// 	};
-	// 	getData();
-	// }, []);
-
 	const displayWorkouts = (plan, i) => {
 		return plan.map((exercise, i) => {
 			return (
@@ -57,10 +39,16 @@ const CurrentWorkoutPlan = ({
 			{currentPlan.length > 0 && (
 				<button
 					className="add-workout-btn"
-					onClick={() => addToWorkouts(workouts, currentPlan)}>
-					Add this plan to My Workouts
+					onClick={() => {
+						addToWorkouts(workouts, currentPlan);
+						setCurrentPlan([]);
+					}}>
+					Add to My Routines
 				</button>
 			)}
+			<Link className="my-workouts-btn" to="/myroutines">
+				See My Routines
+			</Link>
 		</>
 	);
 };

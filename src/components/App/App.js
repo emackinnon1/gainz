@@ -5,7 +5,7 @@ import WorkoutBuilder from "../WorkoutBuilder/WorkoutBuilder";
 import Exercises from "../Exercises/Exercises";
 import CurrentWorkoutPlan from "../CurrentWorkoutPlan/CurrentWorkoutPlan";
 import Home from "../Home/Home";
-import MyWorkouts from "../MyWorkouts/MyWorkouts";
+import MyRoutines from "../MyRoutines/MyRoutines";
 
 export const App = () => {
 	const [workouts, setWorkouts] = useState([]);
@@ -38,8 +38,8 @@ export const App = () => {
 					<Link className="home-btn" to="/">
 						Home
 					</Link>
-					<Link className="my-workouts-btn" to="/myworkouts">
-						My Workouts
+					<Link className="my-workouts-btn" to="/myroutines">
+						My Routines
 					</Link>
 				</div>
 			</header>
@@ -50,25 +50,26 @@ export const App = () => {
 						path="/buildworkout"
 						render={() => (
 							<>
-								<WorkoutBuilder setGoal={setGoal} goal={goal} />
-								<CurrentWorkoutPlan
-									currentPlan={currentPlan}
-									setWorkouts={setWorkouts}
-									workouts={workouts}
-									removeExercise={removeExercise}
-								/>
+								<WorkoutBuilder setGoal={setGoal} />
 								<Exercises
 									goal={goal}
 									currentPlan={currentPlan}
 									setCurrentPlan={setCurrentPlan}
 									addExerciseToPlan={addExerciseToPlan}
 								/>
+								<CurrentWorkoutPlan
+									currentPlan={currentPlan}
+									setWorkouts={setWorkouts}
+									workouts={workouts}
+									removeExercise={removeExercise}
+									setCurrentPlan={setCurrentPlan}
+								/>
 							</>
 						)}
 					/>
 					<Route
-						path="/myworkouts"
-						render={() => <MyWorkouts workouts={workouts} />}
+						path="/myroutines"
+						render={() => <MyRoutines workouts={workouts} />}
 					/>
 				</Switch>
 			</div>

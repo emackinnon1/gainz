@@ -34,7 +34,7 @@ div p {
 form {
 	display: flex;
 	flex-direction: row;
-	height: 15vh;
+	height: 8vh;
 	justify-content: space-evenly;
 }
 

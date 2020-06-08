@@ -3,7 +3,7 @@ import "./WorkoutBuilder.css";
 import { useForm } from "react-hook-form";
 import { fetchData } from "../../apiCalls";
 
-const WorkoutBuilder = ({ setGoal, goal }) => {
+const WorkoutBuilder = ({ setGoal }) => {
 	const { register, handleSubmit, errors } = useForm();
 	const [categories, setCategories] = useState([]);
 	const [equipment, setEquipment] = useState([]);

@@ -1,0 +1,9 @@
+.routine-card {
+	background-color: #e63946;
+	border-radius: 4px;
+	box-shadow: 0 0 0.2em #1d3557;
+	color: #f1faee;
+	padding: 1em;
+	margin: 0.5em;
+	width: 20%;
+}
