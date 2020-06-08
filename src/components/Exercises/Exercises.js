@@ -45,7 +45,7 @@ const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
 					<InfiniteScroll
 						dataLength={exerciseList ? exerciseList.length : 0}
 						loader={<h4>Loading...</h4>}
-						scrollableTarget="scrollableDiv">
+						scrollableTarget="exercise-container">
 						{makeExerciseCards(exerciseList)}
 					</InfiniteScroll>
 				)}

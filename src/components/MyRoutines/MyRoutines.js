@@ -46,7 +46,14 @@ const MyRoutines = ({ workouts }) => {
 		<>
 			<h1>Your saved routines:</h1>
 			{(routineList.length > 0 && (
-				<div className="routines-container">{cards}</div>
+				<div className="routines-container">
+					<InfiniteScroll
+						dataLength={routineList ? routineList.length : 0}
+						loader={<h4>Loading...</h4>}
+						scrollableTarget="routines-container">
+						{cards}
+					</InfiniteScroll>
+				</div>
 			)) || <p>Add some routines you pencil-necked S.O.B.</p>}
 		</>
 	);
