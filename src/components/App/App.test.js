@@ -5,6 +5,7 @@ import { MemoryRouter, Router } from "react-router-dom";
 import "@testing-library/jest-dom";
 import {
 	exerciseTestData,
+	exerciseSearchTestData,
 	equipmentTestData,
 	categoryTestData,
 } from "./AppTestData";
@@ -52,9 +53,10 @@ describe("App", () => {
 
 		it("Should let the user search for exercises to add to their current workout", async () => {
 			fetchData.mockResolvedValueOnce(categoryTestData);
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
 			fetchData.mockResolvedValueOnce(equipmentTestData);
 
-			const { getByText, debug } = render(
+			const { getByText, getAllByRole, debug } = render(
 				<MemoryRouter initialEntries={["/buildworkout"]}>
 					<App />
 				</MemoryRouter>
@@ -65,9 +67,62 @@ describe("App", () => {
 			const equipmentOption = await waitFor(() => getByText("Hairbrush"));
 			expect(equipmentOption).toBeInTheDocument();
 
-			// await act(async () => {
-			// 	userEvent.click(getByText("GET SWOLE"));
-			// });
+			const optionMenus = await waitFor(() => getAllByRole("combobox"));
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[0], "strength");
+				userEvent.selectOptions(optionMenus[1], "Toes");
+				userEvent.selectOptions(optionMenus[2], "Hairbrush");
+			});
+
+			await act(async () => {
+				userEvent.click(getByText("GET SWOLE"));
+			});
+
+			expect(getByText("Downward Dog")).toBeInTheDocument();
+		});
+
+		it("should allow a user to add an exercise to the current workout", async () => {
+			fetchData.mockResolvedValueOnce(categoryTestData);
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+			fetchData.mockResolvedValueOnce(equipmentTestData);
+
+			const { getByText, getAllByRole, getByTestId, debug } = render(
+				<MemoryRouter initialEntries={["/buildworkout"]}>
+					<App />
+				</MemoryRouter>
+			);
+
+			const optionMenus = getAllByRole("combobox");
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[0], "strength");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[1], "8");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[2], "8");
+			});
+
+			act(() => {
+				userEvent.click(getByText("GET SWOLE"));
+			});
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+
+			// should not have to click twice?
+			await act(async () => {
+				userEvent.click(getByText("Add to current workout"));
+			});
+
+			await act(async () => {
+				userEvent.click(getByText("Add to current workout"));
+			});
+
+			const workoutType = await waitFor(() => getByText("strength workout"));
+			expect(workoutType).toBeInTheDocument();
 		});
 	});
 });

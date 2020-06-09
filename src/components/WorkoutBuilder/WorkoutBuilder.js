@@ -47,6 +47,7 @@ const WorkoutBuilder = ({ setGoal }) => {
 						<div>
 							<p>Training goal:</p>
 							<select
+								data-testid="select-goal"
 								name="workoutGoal"
 								ref={register({ required: "Please enter an answer!" })}
 								className="goal-dropdown"

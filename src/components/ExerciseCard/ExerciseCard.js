@@ -3,6 +3,7 @@ import "./ExerciseCard.css";
 import ReactHtmlParser from "react-html-parser";
 
 const ExerciseCard = ({ id, description, name, addExerciseToPlan, goal }) => {
+	// console.log(goal);
 	return (
 		<div className="exercise-card">
 			<h2>{name}</h2>
@@ -13,9 +14,14 @@ const ExerciseCard = ({ id, description, name, addExerciseToPlan, goal }) => {
 				id={id}
 				className="add-btn"
 				data-name={name}
-				onClick={(e) =>
-					addExerciseToPlan(goal, e.target.id, e.target.dataset.name)
-				}>
+				onClick={(e) => {
+					console.log(goal);
+					addExerciseToPlan(
+						goal.workoutGoal,
+						e.target.id,
+						e.target.dataset.name
+					);
+				}}>
 				Add to current workout
 			</button>
 		</div>
