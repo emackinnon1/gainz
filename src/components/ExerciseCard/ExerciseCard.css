@@ -1,0 +1,23 @@
+.exercise-card {
+	align-items: center;
+	background-color: #f1faee;
+	box-shadow: 0 0 0.2 em #1d3557;
+	border-radius: 7px;
+	display: flex;
+	flex-direction: column;
+	color: #1d3557;
+	padding: 1em;
+	margin: 1em;
+}
+
+.add-btn {
+	cursor: pointer;
+	text-decoration: none;
+	background-color: #e63946;
+	border-radius: 4px;
+	color: #f1faee;
+	font-size: 1.2em;
+	margin: 1em;
+	padding: 0.4em;
+	width: 13em;
+}

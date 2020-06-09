@@ -1,0 +1,14 @@
+.full-routine {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	background-color: #1d3557;
+	padding: 0.5em;
+	margin: 1em;
+}
+
+.routines-container {
+	height: 30em;
+	overflow: auto;
+}
