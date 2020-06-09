@@ -14,12 +14,14 @@ export const App = () => {
 
 	// const apiKey = "d5768092543cdecc8aba83fd6bbecc2e33e1d5b4";
 
-	const addExerciseToPlan = (goals, exerciseId, name) => {
+	const addExerciseToPlan = (goal, exerciseId, name) => {
+		// console.log(goal);
 		const exercise = {
-			goal: goals.workoutGoal,
+			goal,
 			exerciseId,
 			name,
 		};
+		// console.log(exercise);
 		setCurrentPlan([...currentPlan, exercise]);
 	};
 

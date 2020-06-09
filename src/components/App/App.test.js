@@ -87,26 +87,42 @@ describe("App", () => {
 			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
 			fetchData.mockResolvedValueOnce(equipmentTestData);
 
-			const { getByText, getAllByRole, debug } = render(
+			const { getByText, getAllByRole, getByTestId, debug } = render(
 				<MemoryRouter initialEntries={["/buildworkout"]}>
 					<App />
 				</MemoryRouter>
 			);
 
-			const categoryOption = await waitFor(() => getByText("Toes"));
-			const equipmentOption = await waitFor(() => getByText("Hairbrush"));
-
-			const optionMenus = await waitFor(() => getAllByRole("combobox"));
+			const optionMenus = getAllByRole("combobox");
 
 			await act(async () => {
 				userEvent.selectOptions(optionMenus[0], "strength");
-				userEvent.selectOptions(optionMenus[1], "Toes");
-				userEvent.selectOptions(optionMenus[2], "Hairbrush");
 			});
 
 			await act(async () => {
+				userEvent.selectOptions(optionMenus[1], "8");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[2], "8");
+			});
+
+			act(() => {
 				userEvent.click(getByText("GET SWOLE"));
 			});
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+
+			// should not have to click twice?
+			await act(async () => {
+				userEvent.click(getByText("Add to current workout"));
+			});
+
+			await act(async () => {
+				userEvent.click(getByText("Add to current workout"));
+			});
+
+			const workoutType = await waitFor(() => getByText("strength workout"));
+			expect(workoutType).toBeInTheDocument();
 		});
 	});
 });

@@ -5,11 +5,15 @@ import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
+	// console.log(goal);
 	const [exerciseList, setExerciseList] = useState([]);
 
 	const urlExercises = `https://wger.de/api/v2/exercise/?category=${goal.muscle}&equipment=${goal.equipment}&language=2&license_author=wger.de`;
 
 	const makeExerciseCards = (list) => {
+		if (!list) {
+			return;
+		}
 		return list.map((exercise, i) => {
 			return (
 				<ExerciseCard
@@ -38,7 +42,7 @@ const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
 		<>
 			<h1>Add exercises to your plan:</h1>
 			<div className="exercise-container scrollableDiv">
-				{exerciseList.length === 0 ? (
+				{exerciseList && exerciseList.length === 0 ? (
 					<p>Search for exercises!</p>
 				) : (
 					<InfiniteScroll
