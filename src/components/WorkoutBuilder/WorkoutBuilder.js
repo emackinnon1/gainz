@@ -11,14 +11,21 @@ const WorkoutBuilder = ({ setGoal }) => {
 	const urlEquipment = "https://wger.de/api/v2/equipment/";
 
 	useEffect(() => {
+		let mounted = true;
 		const getData = async () => {
 			setCategories(await fetchData(urlExerciseCategories));
 			setEquipment(await fetchData(urlEquipment));
 		};
-		getData();
+		if (mounted) {
+			getData();
+		}
+		return () => (mounted = false);
 	}, []);
 
 	const makeMenu = (list) => {
+		if (!list) {
+			return;
+		}
 		return list.map((list, i) => (
 			<option key={i} value={list.id}>
 				{list.name}

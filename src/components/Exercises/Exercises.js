@@ -9,18 +9,6 @@ const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
 
 	const urlExercises = `https://wger.de/api/v2/exercise/?category=${goal.muscle}&equipment=${goal.equipment}&language=2&license_author=wger.de`;
 
-	useEffect(() => {
-		const getData = async () => {
-			setExerciseList(await fetchData(urlExercises));
-		};
-		getData();
-		makeExerciseCards(exerciseList);
-	}, [goal]);
-
-	useEffect(() => {
-		makeExerciseCards(exerciseList);
-	}, [exerciseList]);
-
 	const makeExerciseCards = (list) => {
 		return list.map((exercise, i) => {
 			return (
@@ -34,6 +22,17 @@ const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
 			);
 		});
 	};
+
+	useEffect(() => {
+		let mounted = true;
+		const getData = async () => {
+			setExerciseList(await fetchData(urlExercises));
+		};
+		if (mounted) {
+			getData();
+		}
+		return () => (mounted = false);
+	}, [goal, urlExercises]);
 
 	return (
 		<>
