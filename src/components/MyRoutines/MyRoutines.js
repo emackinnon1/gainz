@@ -4,15 +4,15 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchExerciseInfo } from "../../apiCalls";
 import RoutineCard from "../RoutineCard/RoutineCard";
 
-const MyRoutines = ({ workouts }) => {
+const MyRoutines = ({ routines }) => {
 	const [routineList, setRoutineList] = useState([]);
 
 	useEffect(() => {
 		const getData = async () => {
-			if (!workouts) {
+			if (!routines) {
 				return;
 			}
-			const routines = workouts.map((routine) => {
+			const list = routines.map((routine) => {
 				const returnedWorkouts = routine.map(async (exercise) => {
 					const url = `https://wger.de/api/v2/exerciseinfo/${exercise.exerciseId}/`;
 					return {
@@ -23,10 +23,10 @@ const MyRoutines = ({ workouts }) => {
 				});
 				return Promise.all(returnedWorkouts);
 			});
-			setRoutineList(await Promise.all(routines));
+			setRoutineList(await Promise.all(list));
 		};
 		getData();
-	}, [workouts]);
+	}, [routines]);
 
 	const createRoutine = (routineList) => {
 		return routineList.map((routine, i) => {

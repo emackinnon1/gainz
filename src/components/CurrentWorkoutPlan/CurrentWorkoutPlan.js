@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 
 const CurrentWorkoutPlan = ({
 	currentPlan,
-	setWorkouts,
+	setRoutines,
 	removeExercise,
-	workouts,
+	routines,
 	setCurrentPlan,
 }) => {
 	const displayWorkouts = (plan, i) => {
@@ -25,8 +25,8 @@ const CurrentWorkoutPlan = ({
 		});
 	};
 
-	const addToWorkouts = (prevRoutines, newRoutine) => {
-		setWorkouts([...prevRoutines, newRoutine]);
+	const addToRoutines = (prevRoutines, newRoutine) => {
+		setRoutines([...prevRoutines, newRoutine]);
 	};
 
 	return (
@@ -40,14 +40,14 @@ const CurrentWorkoutPlan = ({
 				<button
 					className="add-workout-btn"
 					onClick={() => {
-						addToWorkouts(workouts, currentPlan);
+						addToRoutines(routines, currentPlan);
 						setCurrentPlan([]);
 					}}>
 					Add to My Routines
 				</button>
 			)}
-			<Link className="my-workouts-btn" to="/myroutines">
-				See My Routines
+			<Link className="my-routines-btn" to="/myroutines">
+				Go to My Routines
 			</Link>
 		</>
 	);

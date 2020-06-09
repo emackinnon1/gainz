@@ -82,12 +82,37 @@ describe("App", () => {
 			expect(getByText("Downward Dog")).toBeInTheDocument();
 		});
 
+		it("should display an error message if all inputs are not filled out", async () => {
+			fetchData.mockResolvedValueOnce(categoryTestData);
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+			fetchData.mockResolvedValueOnce(equipmentTestData);
+
+			const { getByText, getAllByText, getAllByRole, debug } = render(
+				<MemoryRouter initialEntries={["/buildworkout"]}>
+					<App />
+				</MemoryRouter>
+			);
+
+			const optionMenus = getAllByRole("combobox");
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[0], "strength");
+			});
+
+			await act(async () => {
+				userEvent.click(getByText("GET SWOLE"));
+			});
+
+			expect(getAllByText("Please enter an answer!")[0]).toBeInTheDocument();
+			expect(getAllByText("Please enter an answer!")[1]).toBeInTheDocument();
+		});
+
 		it("should allow a user to add an exercise to the current workout", async () => {
 			fetchData.mockResolvedValueOnce(categoryTestData);
 			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
 			fetchData.mockResolvedValueOnce(equipmentTestData);
 
-			const { getByText, getAllByRole, getByTestId, debug } = render(
+			const { getByText, getAllByRole } = render(
 				<MemoryRouter initialEntries={["/buildworkout"]}>
 					<App />
 				</MemoryRouter>
@@ -110,19 +135,77 @@ describe("App", () => {
 			act(() => {
 				userEvent.click(getByText("GET SWOLE"));
 			});
+
 			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
 
-			// should not have to click twice?
+			// should not have to click twice
 			await act(async () => {
-				userEvent.click(getByText("Add to current workout"));
+				userEvent.click(getByText("Add to workout plan"));
 			});
 
 			await act(async () => {
-				userEvent.click(getByText("Add to current workout"));
+				userEvent.click(getByText("Add to workout plan"));
 			});
 
 			const workoutType = await waitFor(() => getByText("strength workout"));
 			expect(workoutType).toBeInTheDocument();
+		});
+
+		it("should display list of routines when viewing MyRoutines component", async () => {
+			fetchData.mockResolvedValueOnce(categoryTestData);
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+			fetchData.mockResolvedValueOnce(equipmentTestData);
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+			fetchExerciseInfo.mockResolvedValueOnce(exerciseTestData);
+
+			const { getByText, getAllByRole, debug } = render(
+				<MemoryRouter initialEntries={["/buildworkout"]}>
+					<App />
+				</MemoryRouter>
+			);
+
+			const optionMenus = getAllByRole("combobox");
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[0], "strength");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[1], "8");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[2], "8");
+			});
+
+			act(() => {
+				userEvent.click(getByText("GET SWOLE"));
+			});
+
+			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+
+			// should not have to click twice
+			await act(async () => {
+				userEvent.click(getByText("Add to workout plan"));
+			});
+
+			act(() => {
+				userEvent.click(getByText("Add to workout plan"));
+			});
+
+			act(() => {
+				userEvent.click(getByText("Add to My Routines"));
+			});
+
+			fetchExerciseInfo.mockResolvedValueOnce(exerciseTestData);
+
+			await act(async () => {
+				userEvent.click(getByText("Go to My Routines"));
+			});
+
+			const workoutName = await waitFor(() =>
+				getByText("Do 3-4 sets of 3-6 reps of this exercise.", { exact: false })
+			);
 		});
 	});
 });
