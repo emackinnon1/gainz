@@ -8,20 +8,18 @@ import Home from "../Home/Home";
 import MyRoutines from "../MyRoutines/MyRoutines";
 
 export const App = () => {
-	const [workouts, setWorkouts] = useState([]);
+	const [routines, setRoutines] = useState([]);
 	const [goal, setGoal] = useState({});
 	const [currentPlan, setCurrentPlan] = useState([]);
 
 	// const apiKey = "d5768092543cdecc8aba83fd6bbecc2e33e1d5b4";
 
 	const addExerciseToPlan = (goal, exerciseId, name) => {
-		// console.log(goal);
 		const exercise = {
 			goal,
 			exerciseId,
 			name,
 		};
-		// console.log(exercise);
 		setCurrentPlan([...currentPlan, exercise]);
 	};
 
@@ -40,7 +38,7 @@ export const App = () => {
 					<Link className="home-btn" to="/">
 						Home
 					</Link>
-					<Link className="my-workouts-btn" to="/myroutines">
+					<Link className="my-routines-btn" to="/myroutines">
 						My Routines
 					</Link>
 				</div>
@@ -61,8 +59,8 @@ export const App = () => {
 								/>
 								<CurrentWorkoutPlan
 									currentPlan={currentPlan}
-									setWorkouts={setWorkouts}
-									workouts={workouts}
+									setRoutines={setRoutines}
+									routines={routines}
 									removeExercise={removeExercise}
 									setCurrentPlan={setCurrentPlan}
 								/>
@@ -71,7 +69,7 @@ export const App = () => {
 					/>
 					<Route
 						path="/myroutines"
-						render={() => <MyRoutines workouts={workouts} />}
+						render={() => <MyRoutines routines={routines} />}
 					/>
 				</Switch>
 			</div>

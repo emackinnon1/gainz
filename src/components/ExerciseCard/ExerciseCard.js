@@ -14,15 +14,14 @@ const ExerciseCard = ({ id, description, name, addExerciseToPlan, goal }) => {
 				id={id}
 				className="add-btn"
 				data-name={name}
-				onClick={(e) => {
-					console.log(goal);
+				onClick={(e) =>
 					addExerciseToPlan(
 						goal.workoutGoal,
 						e.target.id,
 						e.target.dataset.name
-					);
-				}}>
-				Add to current workout
+					)
+				}>
+				Add to workout plan
 			</button>
 		</div>
 	);

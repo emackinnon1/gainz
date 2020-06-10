@@ -10,13 +10,15 @@
 }
 
 .add-workout-btn {
+	border: none;
 	cursor: pointer;
 	text-decoration: none;
 	background-color: #e63946;
+	box-shadow: 0 0 0.2em #1d3557;
 	border-radius: 4px;
 	color: #f1faee;
 	font-size: 1em;
-	margin: 1em;
+	margin-top: 1em;
 	padding: 0.4em;
 	width: 13em;
 }
