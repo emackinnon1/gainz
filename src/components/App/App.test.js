@@ -138,7 +138,9 @@ describe("App", () => {
 
 			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
 
-			// should not have to click twice
+			// should not have to click twice to get a card
+			// with a workout goal to show
+
 			await act(async () => {
 				userEvent.click(getByText("Add to workout plan"));
 			});
@@ -184,7 +186,8 @@ describe("App", () => {
 
 			fetchData.mockResolvedValueOnce(exerciseSearchTestData);
 
-			// should not have to click twice
+			// should not have to click twice to get a card
+			// with a workout goal to show
 			await act(async () => {
 				userEvent.click(getByText("Add to workout plan"));
 			});
@@ -203,9 +206,43 @@ describe("App", () => {
 				userEvent.click(getByText("Go to My Routines"));
 			});
 
-			const workoutName = await waitFor(() =>
+			const setsAndReps = await waitFor(() =>
 				getByText("Do 3-4 sets of 3-6 reps of this exercise.", { exact: false })
 			);
+			expect(setsAndReps).toBeInTheDocument();
+		});
+
+		it("should allow the user to manipulate their current workout before they add it to saved routines", async () => {
+			const { getByText, getAllByText, getAllByRole, debug } = render(
+				<MemoryRouter initialEntries={["/buildworkout"]}>
+					<App />
+				</MemoryRouter>
+			);
+			// fetchData.mockResolvedValueOnce(categoryTestData);
+			// fetchData.mockResolvedValueOnce(exerciseSearchTestData);
+			// fetchData.mockResolvedValueOnce(equipmentTestData);
+
+			const optionMenus = getAllByRole("combobox");
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[0], "strength");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[1], "8");
+			});
+
+			await act(async () => {
+				userEvent.selectOptions(optionMenus[2], "8");
+			});
+
+			await act(async () => {
+				userEvent.click(getByText("GET SWOLE"));
+			});
+
+			expect(getAllByText("Please enter an answer!")[0]).toBeInTheDocument();
+			expect(getAllByText("Please enter an answer!")[1]).toBeInTheDocument();
+			debug();
 		});
 	});
 });
