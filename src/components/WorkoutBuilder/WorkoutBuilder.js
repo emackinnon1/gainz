@@ -10,6 +10,14 @@ const WorkoutBuilder = ({ setGoal }) => {
 	const urlExerciseCategories = "https://wger.de/api/v2/exercisecategory/";
 	const urlEquipment = "https://wger.de/api/v2/equipment/";
 
+	const getShit = async () => {
+		const things = await fetch(urlEquipment);
+		const response = await things.json();
+		console.log("getShit", response);
+	};
+
+	// getShit();
+
 	useEffect(() => {
 		let mounted = true;
 		const getData = async () => {
