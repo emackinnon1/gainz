@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Exercises.css";
-import { fetchData } from "../../apiCalls";
+import { fetchExerciseData } from "../../apiCalls";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -29,9 +29,9 @@ const Exercises = ({ goal, currentPlan, addExerciseToPlan }) => {
 	useEffect(() => {
 		let mounted = true;
 		const getData = async () => {
-			setExerciseList(await fetchData(urlExercises));
+			setExerciseList(await fetchExerciseData(urlExercises));
 		};
-		if (mounted) {
+		if (mounted && goal.muscle) {
 			getData();
 		}
 		return () => (mounted = false);
